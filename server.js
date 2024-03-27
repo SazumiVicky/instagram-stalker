@@ -1,3 +1,10 @@
+/*
+* dev: Sazumi Viki
+* ig: @moe.sazumiviki
+* gh: github.com/sazumivicky
+* site: sazumi.moe
+*/
+
 const { remote } = require('webdriverio');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -5,13 +12,14 @@ const randomUseragent = require('random-useragent');
 const path = require('path');
 
 const app = express();
-let browser;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/stalker', async (req, res) => {
+    let browser;
+
     try {
         const { username } = req.query;
 
@@ -57,12 +65,16 @@ app.get('/stalker', async (req, res) => {
             const resultText = await resultContainer.getText();
             if (resultText.includes('No Stalker Found')) {
                 console.log('No stalkers found.');
+                await browser.deleteSession();
+                const jsonResponse = { message: 'No Stalker Found' };
+                res.setHeader("Content-Type", "application/json");
+                res.status(404).send(JSON.stringify(jsonResponse, null, 2));
                 return true;
             } else {
                 return resultText.includes('Your Stalkers:');
             }
         }, {
-            timeout: 10000,
+            timeout: 20000,
             timeoutMsg: 'Timeout waiting for result to appear'
         });
 
@@ -76,18 +88,13 @@ app.get('/stalker', async (req, res) => {
         const jsonResponse = { stalkers };
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(jsonResponse, null, 2));
-
-        await browser.deleteSession();
-        process.exit(1);
-
     } catch (error) {
         console.error('Error occurred:', error);
         res.status(500).json({ error: 'An error occurred while scraping the website.' });
-
+    } finally {
         if (browser) {
             await browser.deleteSession();
         }
-        process.exit(1);
     }
 });
 
