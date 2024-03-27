@@ -1,0 +1,127 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.wrapper {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+}
+
+h1 {
+    color: #ff4d6b;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff4d6b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff3264;
+}
+
+#resultContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.stalker-item {
+    background-color: #ffe3f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.stalker-item:hover {
+    transform: scale(1.05);
+}
+
+.stalker-item h3 {
+    color: #ff4d6b;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.stalker-item p {
+    color: #666;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+#loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; 
+}
+
+#loadingContainer img {
+    width: 100px;
+    height: 100px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffeff9;
+    color: #ff4d6b;
+    text-align: center;
+    padding: 10px 0;
+}
+
+p {
+    font-size: 14px;
+    color: #666;
+}
+
+@media (min-width: 769px) {
+    .container {
+      width: 100%;
+    }
+  
+  
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+    }
+  }
+}
