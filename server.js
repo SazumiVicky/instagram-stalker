@@ -65,6 +65,7 @@ app.get('/stalker', async (req, res) => {
             const resultText = await resultContainer.getText();
             if (resultText.includes('No Stalker Found')) {
                 console.log('No stalkers found.');
+                await browser.deleteSession();
                 const jsonResponse = { message: 'No Stalker Found' };
                 res.setHeader("Content-Type", "application/json");
                 res.status(404).send(JSON.stringify(jsonResponse, null, 2));
@@ -73,7 +74,7 @@ app.get('/stalker', async (req, res) => {
                 return resultText.includes('Your Stalkers:');
             }
         }, {
-            timeout: 10000,
+            timeout: 20000,
             timeoutMsg: 'Timeout waiting for result to appear'
         });
 
