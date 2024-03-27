@@ -1,3 +1,10 @@
+/*
+* dev: Sazumi Viki
+* ig: @moe.sazumiviki
+* gh: github.com/sazumivicky
+* site: sazumi.moe
+*/
+
 const { remote } = require('webdriverio');
 const express = require('express');
 const bodyParser = require('body-parser');
