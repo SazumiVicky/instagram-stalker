@@ -87,17 +87,13 @@ app.get('/stalker', async (req, res) => {
         const jsonResponse = { stalkers };
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(jsonResponse, null, 2));
-        
-        await browser.deleteSession();
-        process.exit();
     } catch (error) {
         console.error('Error occurred:', error);
         res.status(500).json({ error: 'An error occurred while scraping the website.' });
-
+    } finally {
         if (browser) {
             await browser.deleteSession();
         }
-        process.exit(1);
     }
 });
 
