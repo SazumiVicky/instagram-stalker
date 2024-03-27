@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Show loading animation
             document.getElementById('loadingContainer').style.display = 'block';
 
             const response = await fetch(`/stalker?username=${username}`);
