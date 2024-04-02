@@ -51,7 +51,6 @@ app.get('/stalker', async (req, res) => {
 
         const inputField = await browser.$('#instagramUsername');
         await inputField.waitForExist();
-        await inputField.waitForDisplayed();
         await inputField.waitForEnabled();
         await inputField.setValue(username);
 
