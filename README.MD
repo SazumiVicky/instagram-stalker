@@ -1,6 +1,6 @@
 # Instagram Stalker Scraper
 
-![GitHub](https://img.shields.io/github/license/sazumivicky/instagram-stalker-scraper)
+![GitHub](https://img.shields.io/badge/license-MIT-blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/sazumivicky/instagram-stalker-scraper)
 ![GitHub issues](https://img.shields.io/github/issues/sazumivicky/instagram-stalker-scraper)
 
