@@ -40,8 +40,7 @@ app.get('/stalker', async (req, res) => {
                         '--headless',
                         '--disable-gpu',
                         '--no-sandbox',
-                        '--disable-dev-shm-usage',
-                        '--user-agent=' + userAgent
+                        '--disable-dev-shm-usage'
                     ]
                 }
             }
