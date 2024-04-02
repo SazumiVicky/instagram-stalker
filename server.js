@@ -90,7 +90,7 @@ app.get('/stalker', async (req, res) => {
         res.send(JSON.stringify(jsonResponse, null, 2));
     } catch (error) {
         console.error('Error occurred:', error);
-        res.status(500).json({ error: 'An error occurred while scraping the website.' });
+        res.status(500).json({ error: 'Upps something wrong' });
     } finally {
         if (browser) {
             await browser.deleteSession();
