@@ -1,10 +1,3 @@
-/*
-* dev: Sazumi Viki
-* ig: @moe.sazumiviki
-* gh: github.com/sazumivicky
-* site: sazumi.moe
-*/
-
 const { remote } = require('webdriverio');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -53,6 +46,8 @@ app.get('/stalker', async (req, res) => {
         await inputField.waitForExist();
         await inputField.waitForEnabled();
         await inputField.setValue(username);
+
+        await browser.pause(2000);
 
         const checkButton = await browser.$('button=Check Stalker');
         await checkButton.waitForExist();
