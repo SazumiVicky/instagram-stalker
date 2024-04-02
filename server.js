@@ -1,8 +1,8 @@
 /*
-* Pengembang: Sazumi Viki
-* Instagram: @moe.sazumiviki
-* GitHub: github.com/sazumivicky
-* Situs: sazumi.moe
+* dev: Sazumi Viki
+* ig: @moe.sazumiviki
+* gh: github.com/sazumivicky
+* site: sazumi.moe
 */
 
 const { remote } = require('webdriverio');
@@ -24,7 +24,7 @@ app.get('/stalker', async (req, res) => {
         const { username } = req.query;
 
         if (!username) {
-            const jsonResponse = { message: 'Mohon Masukkan Nama Pengguna (Username)' };
+            const jsonResponse = { message: 'Please Input Username' };
             res.setHeader("Content-Type", "application/json");
             res.status(400).send(JSON.stringify(jsonResponse, null, 2));
             return;
@@ -40,7 +40,8 @@ app.get('/stalker', async (req, res) => {
                         '--headless',
                         '--disable-gpu',
                         '--no-sandbox',
-                        '--disable-dev-shm-usage'
+                        '--disable-dev-shm-usage',
+                        '--user-agent=' + userAgent
                     ]
                 }
             }
@@ -49,47 +50,47 @@ app.get('/stalker', async (req, res) => {
         await browser.url('https://tools.revesery.com/stalkers/');
 
         const inputField = await browser.$('#instagramUsername');
-        await inputField.waitForExist({ timeout: 10000 });
-        await inputField.waitForEnabled({ timeout: 10000 });
+        await inputField.waitForExist();
+        await inputField.waitForEnabled();
         await inputField.setValue(username);
 
         const checkButton = await browser.$('button=Check Stalker');
-        await checkButton.waitForExist({ timeout: 20000 });
-        await checkButton.waitForEnabled({ timeout: 20000 });
+        await checkButton.waitForExist();
+        await checkButton.waitForEnabled();
         await checkButton.click();
 
         const resultContainer = await browser.$('#resultContainer');
 
         await browser.waitUntil(async () => {
             const resultText = await resultContainer.getText();
-            if (resultText.includes('Tidak Ada Stalker Ditemukan')) {
-                console.log('Tidak ada stalker ditemukan.');
+            if (resultText.includes('No Stalker Found')) {
+                console.log('No stalkers found.');
                 await browser.deleteSession();
-                const jsonResponse = { message: 'Tidak Ada Stalker Ditemukan' };
+                const jsonResponse = { message: 'No Stalker Found' };
                 res.setHeader("Content-Type", "application/json");
                 res.status(404).send(JSON.stringify(jsonResponse, null, 2));
                 return true;
             } else {
-                return resultText.includes('Stalker Anda:');
+                return resultText.includes('Your Stalkers:');
             }
         }, {
             timeout: 20000,
-            timeoutMsg: 'Timeout menunggu hasil muncul'
+            timeoutMsg: 'Timeout waiting for result to appear'
         });
 
         const resultText = await resultContainer.getText();
 
         const stalkers = resultText.split('\n').slice(1).map(item => {
             const [name, username] = item.split('. ')[1].split(' | ');
-            return { Nama: name.trim(), username: (username ? username.trim() : "(tidak terdefinisi)") };
+            return { Name: name.trim(), username: (username ? username.trim() : "(undefined)") };
         });
 
         const jsonResponse = { stalkers };
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(jsonResponse, null, 2));
     } catch (error) {
-        console.error('Terjadi kesalahan:', error);
-        res.status(500).json({ error: 'Terjadi kesalahan saat melakukan scraping website.' });
+        console.error('Error occurred:', error);
+        res.status(500).json({ error: 'An error occurred while scraping the website.' });
     } finally {
         if (browser) {
             await browser.deleteSession();
@@ -98,5 +99,5 @@ app.get('/stalker', async (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server berjalan pada port 3000');
+    console.log('Server is running on port 3000');
 });
