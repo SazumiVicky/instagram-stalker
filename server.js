@@ -50,13 +50,16 @@ app.get('/stalker', async (req, res) => {
         await browser.url('https://tools.revesery.com/stalkers/');
 
         const inputField = await browser.$('#instagramUsername');
-        await inputField.waitForExist({ timeout: 5000 });
-        await inputField.waitForEnabled({ timeout: 5000 });
-        await inputField.setValue(username);
+        await inputField.waitForExist({ timeout: 10000 });
+        await inputField.waitForEnabled({ timeout: 10000 });
+
+        await browser.execute((element, value) => {
+            element.value = value;
+        }, inputField, username);
 
         const checkButton = await browser.$('button=Check Stalker');
-        await checkButton.waitForExist({ timeout: 5000 });
-        await checkButton.waitForEnabled({ timeout: 5000 });
+        await checkButton.waitForExist({ timeout: 10000 });
+        await checkButton.waitForEnabled({ timeout: 10000 });
         await checkButton.click();
 
         const resultContainer = await browser.$('#resultContainer');
