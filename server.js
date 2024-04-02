@@ -1,3 +1,10 @@
+/*
+* dev: Sazumi Viki
+* ig: @moe.sazumiviki
+* gh: github.com/sazumivicky
+* site: sazumi.moe
+*/
+
 const { remote } = require('webdriverio');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -42,10 +49,9 @@ app.get('/stalker', async (req, res) => {
 
         await browser.url('https://tools.revesery.com/stalkers/');
 
-        await browser.pause(2000);
-
         const inputField = await browser.$('#instagramUsername');
         await inputField.waitForExist();
+        await inputField.waitForDisplayed();
         await inputField.waitForEnabled();
         await inputField.setValue(username);
 
